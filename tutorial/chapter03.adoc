@@ -34,12 +34,12 @@ fun factorial(n: Int): Double = if (n < 2) 1.0 else n * factorial(n - 1)
 ----
 fun factorial(n: Int): Double {
     // Мутирующая переменная (var)
-    var result = 1.0
-    for (i in 1..n) {
-        result = result * i
-    }
-    return result
-}
+
+} var result = 1.0
+     for (i in 1..n) {
+         result = result * i
+     }
+     return result
 ----
 
 Конструкция `for (i in 1..n) { ... }` читается как "Для всех i в __интервале__ от 1 до n (выполнить) ...".
