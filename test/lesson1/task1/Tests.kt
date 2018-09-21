@@ -83,7 +83,6 @@ class Tests {
         assertEquals(1, thirdDigit(100))
         assertEquals(0, thirdDigit(1000))
     }
-
     @Test
     @Tag("Easy")
     fun travelMinutes() {
