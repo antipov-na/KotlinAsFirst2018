@@ -1,9 +1,10 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson2.task1
 
+import kotlinx.html.VAR
 import lesson1.task1.discriminant
-import kotlin.math.max
-import kotlin.math.sqrt
+import lesson1.task1.sqr
+import kotlin.math.*
 
 /**
  * Пример
@@ -72,6 +73,7 @@ fun ageDescription(age: Int): String  {
         else     -> "$age лет"
     }
 }
+
 /**
  * Простая
  *
@@ -79,9 +81,20 @@ fun ageDescription(age: Int): String  {
  * и t3 часов — со скоростью v3 км/час.
  * Определить, за какое время он одолел первую половину пути?
  */
+
 fun timeForHalfWay(t1: Double, v1: Double,
                    t2: Double, v2: Double,
-                   t3: Double, v3: Double): Double = TODO()
+                   t3: Double, v3: Double): Double {
+    val s1 = t1 * v1
+    val s2 = t2 * v2
+    val s3 = t3 * v3
+    val s = (s1 + s2 + s3) / 2
+    return if (s <= s1)  s / v1 else
+        if (s > s1 + s2)  (s - (s1 + s2)) / v3 + t1 + t2 else
+            if (s > s1)  (s - s1) / v2 + t1 else
+                if (s == s1 + s2)  t1 + t2 else  Double.NaN
+}
+
 
 /**
  * Простая
@@ -95,8 +108,10 @@ fun timeForHalfWay(t1: Double, v1: Double,
 
 fun whichRookThreatens(kingX: Int, kingY: Int,
                        rookX1: Int, rookY1: Int,
-                       rookX2: Int, rookY2: Int): Int = TODO()
-
+                       rookX2: Int, rookY2: Int): Int =
+        if ((kingX == rookX1 || kingY == rookY1) && (kingX == rookX2 || kingY == rookY2)) 3 else
+            if (kingX == rookX1 || kingY == rookY1) 1 else
+                if (kingX == rookX2 || kingY == rookY2) 2 else 0
 
 /**
  * Простая
@@ -110,17 +125,29 @@ fun whichRookThreatens(kingX: Int, kingY: Int,
  */
 fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
-                          bishopX: Int, bishopY: Int): Int = TODO()
+                          bishopX: Int, bishopY: Int): Int =
+    if (kingX == rookX || kingY == rookY && abs(kingX-bishopX) == abs(kingY-bishopY)) 3 else
+        if (kingX == rookX || kingY == rookY) 1 else
+            if (abs(kingX-bishopX) == abs(kingY-bishopY)) 2 else 0
+
 
 /**
  * Простая
- *
+ *|
  * Треугольник задан длинами своих сторон a, b, c.
  * Проверить, является ли данный треугольник остроугольным (вернуть 0),
  * прямоугольным (вернуть 1) или тупоугольным (вернуть 2).
  * Если такой треугольник не существует, вернуть -1.
  */
-fun triangleKind(a: Double, b: Double, c: Double): Int = TODO()
+fun triangleKind(a: Double, b: Double, c: Double): Int {
+    val maxNumber = max(a, b)
+    val minNumber = min(a, b)
+    val hypotenuse= max(maxNumber, c)
+    val middleNumber = min(maxNumber, c)
+    return if ((a + b <= c) || (a + c <= b) || (c + b <= a)) -1 else
+        if (sqr(minNumber) + sqr(middleNumber) > sqr(hypotenuse)) 0 else
+            if (sqr(minNumber) + sqr(middleNumber) < sqr(hypotenuse)) 2 else 1
+}
 
 /**
  * Средняя
