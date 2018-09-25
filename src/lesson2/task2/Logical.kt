@@ -26,7 +26,7 @@ fun isNumberHappy(number: Int): Boolean = TODO()
  * Определить, угрожают ли они друг другу. Вернуть true, если угрожают.
  * Считать, что ферзи не могут загораживать друг друга.
  */
-fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
+fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO ()
 
 
 /**
@@ -36,6 +36,7 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean = TODO()
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 fun daysInMonth(month: Int, year: Int): Int = TODO()
+
 
 /**
  * Средняя
@@ -57,3 +58,4 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean = TODO()
+
