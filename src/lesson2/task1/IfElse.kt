@@ -91,10 +91,8 @@ fun timeForHalfWay(t1: Double, v1: Double,
     val s = (s1 + s2 + s3) / 2
     return when {
         s <= s1 -> s / v1
-        s > s1 + s2 -> (s - (s1 + s2)) / v3 + t1 + t2
-        s > s1 -> (s - s1) / v2 + t1
-        s == s1 + s2 -> t1 + t2
-        else -> Double.NaN
+        s >= s1 + s2 -> (s - (s1 + s2)) / v3 + t1 + t2
+        else -> (s - s1) / v2 + t1
     }
 }
 
@@ -133,9 +131,9 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
                           rookX: Int, rookY: Int,
                           bishopX: Int, bishopY: Int): Int =
         when {
-            kingX == rookX || kingY == rookY && abs(kingX - bishopX) == abs(kingY - bishopY) -> 3
-            kingX == rookX || kingY == rookY                                                        -> 1
-            abs(kingX - bishopX) == abs(kingY - bishopY)                                     -> 2
+            (kingX == rookX || kingY == rookY) && abs(kingX - bishopX) == abs(kingY - bishopY) -> 3
+            kingX == rookX || kingY == rookY                                                          -> 1
+            abs(kingX - bishopX) == abs(kingY - bishopY)                                       -> 2
             else -> 0
         }
 
@@ -149,14 +147,25 @@ fun rookOrBishopThreatens(kingX: Int, kingY: Int,
  * Если такой треугольник не существует, вернуть -1.
  */
 fun triangleKind(a: Double, b: Double, c: Double): Int {
-    val maxNumber = max(a, b)
-    val minNumber = min(a, b)
-    val hypotenuse= max(maxNumber, c)
-    val middleNumber = min(maxNumber, c)
+    if (a + b <= c || a + c <= b || c + b <= a) return -1
+    val hypotenuse = max(max(a, b), c)
+    var kat1 = 0.0
+    var kat2 = 0.0
+    if (hypotenuse == c){
+        kat1 = b
+        kat2 = a
+    }
+    if (hypotenuse == a){
+        kat1 = b
+        kat2 = c
+    }
+    if (hypotenuse == b){
+        kat1 = a
+        kat2 = c
+    }
     return when {
-        a + b <= c || a + c <= b || c + b <= a               -> -1
-        sqr(minNumber) + sqr(middleNumber) > sqr(hypotenuse) -> 0
-        sqr(minNumber) + sqr(middleNumber) < sqr(hypotenuse) -> 2
+        sqr(kat1) + sqr(kat2) > sqr(hypotenuse) -> 0
+        sqr(kat1) + sqr(kat2) < sqr(hypotenuse) -> 2
         else -> 1
     }
 }
@@ -169,5 +178,16 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  * Найти длину пересечения отрезков AB и CD.
  * Если пересечения нет, вернуть -1.
  */
-fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int = TODO()
+fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
+        when {
+            c > b && d > a || a > d && b > c -> -1
+            c > a && b > d -> d - c
+            a > c && d > b -> b -a
+            d > a && b > c -> d - a
+            b > c && d > a -> b - c
+            b == c || a == d -> 0
+            c > a && b > d || a == c && b > d || c > a && d == b -> d - c
+            else -> b - a
+        }
+
 
