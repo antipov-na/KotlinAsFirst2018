@@ -79,9 +79,22 @@ fun digitNumber(n: Int): Int {
  */
 
 
+fun fib(n: Int): Int {
+    var counter = 2
+    var counter1 = 1
+    var secondnum: Int
+    when (n) {
+        1 -> return 1
+        2 -> return 1
+    }
+     for (i in 4..n) {
+        secondnum = counter
+        counter += counter1
+        counter1 = secondnum
+    }
+    return counter
 
-fun fib(n: Int): Int = TODO()
-
+}
 /**
  * Простая
  *
