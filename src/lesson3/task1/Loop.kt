@@ -71,6 +71,7 @@ fun digitNumber(n: Int): Int {
     while (n % 10 > 0) {counter += 1}
     return counter
 }
+
 /**
  * Простая
  *
@@ -81,16 +82,16 @@ fun digitNumber(n: Int): Int {
 
 fun fib(n: Int): Int {
     var counter = 2
-    var counter1 = 1
-    var secondnum: Int
+    var nAfter = 1
+    var nBefore: Int
     when (n) {
         1 -> return 1
         2 -> return 1
     }
-     for (i in 4..n) {
-        secondnum = counter
-        counter += counter1
-        counter1 = secondnum
+    for (i in 4..n) {
+        nBefore = counter
+        counter += nAfter
+        nAfter = nBefore
     }
     return counter
 
