@@ -1,6 +1,7 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
+import kotlin.math.abs
 import kotlin.math.sqrt
 
 /**
@@ -67,11 +68,16 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
+    var number = abs(n)
     var counter = 0
-    while (n % 10 > 0) {counter += 1}
+    if (number < 10) return 1
+    while (number / 10 > 0) {
+        counter += 1
+        number /= 10
+        if (number < 10) counter +=1
+    }
     return counter
 }
-
 /**
  * Простая
  *
@@ -84,10 +90,7 @@ fun fib(n: Int): Int {
     var counter = 2
     var nAfter = 1
     var nBefore: Int
-    when (n) {
-        1 -> return 1
-        2 -> return 1
-    }
+    if (n == 1 || n == 2) return 1
     for (i in 4..n) {
         nBefore = counter
         counter += nAfter
