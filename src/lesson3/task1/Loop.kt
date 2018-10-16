@@ -1,8 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
 package lesson3.task1
 
-import kotlin.math.abs
-import kotlin.math.sqrt
+import kotlin.math.*
+
 
 /**
  * Пример
@@ -105,21 +105,39 @@ fun fib(n: Int): Int {
  * Для заданных чисел m и n найти наименьшее общее кратное, то есть,
  * минимальное число k, которое делится и на m и на n без остатка
  */
-fun lcm(m: Int, n: Int): Int = TODO()
+fun lcm(m: Int, n: Int): Int {
+    var dividend = max(n,m)
+    while (dividend % n !== 0 || dividend % m !== 0) {
+        dividend +=1
+    }
+    return dividend
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
+fun minDivisor(n: Int): Int {
+    var divider = 2
+    while (n % divider !== 0 ) {
+        divider += 1
+    }
+    return divider
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
+fun maxDivisor(n: Int): Int {
+    var divider = n-1
+    while (!(n % divider).equals(0) ) {
+        divider -= 1
+    }
+    return divider
+}
 
 /**
  * Простая
@@ -128,7 +146,15 @@ fun maxDivisor(n: Int): Int = TODO()
  * Взаимно простые числа не имеют общих делителей, кроме 1.
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
-fun isCoPrime(m: Int, n: Int): Boolean = TODO()
+fun isCoPrime(m: Int, n: Int): Boolean {
+    var divider = min(n,m)
+    var counter = 1
+    while (divider > 1) {
+        if (n % counter == 0 && m % counter == 0) counter +=1
+        divider -=1
+    }
+    return counter.equals(1)
+}
 
 /**
  * Простая
