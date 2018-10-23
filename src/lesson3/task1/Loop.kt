@@ -1,6 +1,8 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson3.task1
 
+import lesson1.task1.sqr
 import kotlin.math.*
 
 
@@ -39,7 +41,7 @@ fun isPrime(n: Int): Boolean {
  */
 fun isPerfect(n: Int): Boolean {
     var sum = 1
-    for (m in 2..n/2) {
+    for (m in 2..n / 2) {
         if (n % m > 0) continue
         sum += m
         if (sum > n) break
@@ -74,10 +76,11 @@ fun digitNumber(n: Int): Int {
     while (number / 10 > 0) {
         counter += 1
         number /= 10
-        if (number < 10) counter +=1
+        if (number < 10) counter += 1
     }
     return counter
 }
+
 /**
  * Простая
  *
@@ -99,6 +102,7 @@ fun fib(n: Int): Int {
     return counter
 
 }
+
 /**
  * Простая
  *
@@ -106,11 +110,12 @@ fun fib(n: Int): Int {
  * минимальное число k, которое делится и на m и на n без остатка
  */
 fun lcm(m: Int, n: Int): Int {
-    var dividend = max(n,m)
-    while (dividend % n !== 0 || dividend % m !== 0) {
-        dividend +=1
+    var a = m
+    var b = n
+    while (a % b !== 0 && b % a !== 0) {
+        if (a > b) a %= b else b %= a
     }
-    return dividend
+    return m * n / min(a, b)
 }
 
 /**
@@ -120,7 +125,7 @@ fun lcm(m: Int, n: Int): Int {
  */
 fun minDivisor(n: Int): Int {
     var divider = 2
-    while (n % divider !== 0 ) {
+    while (n % divider !== 0) {
         divider += 1
     }
     return divider
@@ -132,8 +137,8 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var divider = n-1
-    while (!(n % divider).equals(0) ) {
+    var divider = n -  n / 2
+    while (n % divider !==0) {
         divider -= 1
     }
     return divider
@@ -147,11 +152,11 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var divider = min(n,m)
+    var divider = min(n, m)
     var counter = 1
     while (divider > 1) {
-        if (n % counter == 0 && m % counter == 0) counter +=1
-        divider -=1
+        if (n % counter == 0 && m % counter == 0) counter += 1
+        divider -= 1
     }
     return counter.equals(1)
 }
@@ -163,8 +168,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
-
+fun squareBetweenExists(m: Int, n: Int): Boolean = TODO() // без циклов
 /**
  * Средняя
  *
