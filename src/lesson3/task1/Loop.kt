@@ -3,6 +3,7 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
+import lesson4.task1.factorizeToString
 import kotlin.math.*
 
 
@@ -152,13 +153,10 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    var divider = min(n, m)
-    var counter = 1
-    while (divider > 1) {
-        if (n % counter == 0 && m % counter == 0) counter += 1
-        divider -= 1
+    for (k in 2..max(m,n)/2){
+        if (m % k == 0 && n % k == 0) return false
     }
-    return counter.equals(1)
+    return true
 }
 
 /**
@@ -168,7 +166,7 @@ fun isCoPrime(m: Int, n: Int): Boolean {
  * то есть, существует ли такое целое k, что m <= k*k <= n.
  * Например, для интервала 21..28 21 <= 5*5 <= 28, а для интервала 51..61 квадрата не существует.
  */
-fun squareBetweenExists(m: Int, n: Int): Boolean = TODO() // без циклов
+fun squareBetweenExists(m: Int, n: Int): Boolean = TODO()
 /**
  * Средняя
  *
