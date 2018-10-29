@@ -186,7 +186,15 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
  * Написать функцию, которая находит, сколько шагов требуется для
  * этого для какого-либо начального X > 0.
  */
-fun collatzSteps(x: Int): Int = TODO()
+fun collatzSteps(x: Int): Int {
+    var collatzNumber = x
+    var counter = 0
+    while (collatzNumber !=1){
+        if (collatzNumber % 2 == 0) collatzNumber /= 2 else collatzNumber = 3 * collatzNumber + 1
+        counter += 1
+    }
+    return counter
+}
 
 /**
  * Средняя
@@ -213,7 +221,23 @@ fun cos(x: Double, eps: Double): Double = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun revert(n: Int): Int = TODO()
+fun revert(n: Int): Int {
+    var digitsInNumber = 0
+    var number = n
+    var result = 0
+    do {
+        number /= 10
+        digitsInNumber += 1
+    } while (number % 10 != 0)
+    number = n
+    var power = 10.0.pow(digitsInNumber - 1).toInt()
+    while (number % 10 != 0) {
+        result += number % 10 * power
+        number /= 10
+        power /= 10
+    }
+    return result
+}
 
 /**
  * Средняя
