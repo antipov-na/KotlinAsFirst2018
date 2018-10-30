@@ -71,13 +71,11 @@ fun digitCountInNumber(n: Int, m: Int): Int =
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun digitNumber(n: Int): Int {
-    var number = abs(n)
-    var counter = 0
-    if (number < 10) return 1
-    while (number / 10 > 0) {
+    var counter = 1
+    var y = n
+    while (y / 10 != 0) {
+        y /= 10
         counter += 1
-        number /= 10
-        if (number < 10) counter += 1
     }
     return counter
 }
@@ -91,17 +89,16 @@ fun digitNumber(n: Int): Int {
 
 
 fun fib(n: Int): Int {
-    var counter = 2
-    var nAfter = 1
-    var nBefore: Int
+    var result = 1
+    var nSubOne = 1
+    var nSubTwo = 1
     if (n == 1 || n == 2) return 1
-    for (i in 4..n) {
-        nBefore = counter
-        counter += nAfter
-        nAfter = nBefore
+    for (k in 3..n) {
+        result = nSubTwo + nSubOne
+        nSubTwo = nSubOne
+        nSubOne = result
     }
-    return counter
-
+    return result
 }
 
 /**
@@ -223,16 +220,12 @@ fun cos(x: Double, eps: Double): Double = TODO()
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun revert(n: Int): Int {
-    var digitsInNumber = 0
+    val digitsInNumber = digitNumber(n)
     var number = n
     var result = 0
-    do {
-        number /= 10
-        digitsInNumber += 1
-    } while (number % 10 != 0)
     number = n
     var power = 10.0.pow(digitsInNumber - 1).toInt()
-    while (number % 10 != 0) {
+    while (power != 0) {
         result += number % 10 * power
         number /= 10
         power /= 10
@@ -260,13 +253,15 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var a = n % 10
-    var b = n % 100 / 10
-    var c = n / 100
-    while (a == b && c > 0) {
+    var counter = digitNumber(n)
+    var a = 1
+    var b = 1
+    var c = n
+    for (k in 1..counter) {
         a = c % 10
-        if(c%100/10 != 0) b = c % 100 / 10
+        b = c % 100 / 10
         c /= 100
+        if (a!=b) break
     }
     return a!=b
 }
