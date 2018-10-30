@@ -138,8 +138,8 @@ fun minDivisor(n: Int): Int {
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
 fun maxDivisor(n: Int): Int {
-    var divider = n -  n / 2
-    while (n % divider !==0) {
+    var divider = n - n / 2
+    while (n % divider !== 0) {
         divider -= 1
     }
     return divider
@@ -153,7 +153,7 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    for (k in 2..max(m,n)/2){
+    for (k in 2..max(m, n) / 2) {
         if (m % k == 0 && n % k == 0) return false
     }
     return true
@@ -170,6 +170,7 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
     if (m == 1 || n == 1) return true
     return sqr(ceil(sqrt(m.toDouble()))) <= n
 }
+
 /**
  * Средняя
  *
@@ -189,7 +190,7 @@ fun squareBetweenExists(m: Int, n: Int): Boolean {
 fun collatzSteps(x: Int): Int {
     var collatzNumber = x
     var counter = 0
-    while (collatzNumber !=1){
+    while (collatzNumber != 1) {
         if (collatzNumber % 2 == 0) collatzNumber /= 2 else collatzNumber = 3 * collatzNumber + 1
         counter += 1
     }
@@ -248,7 +249,7 @@ fun revert(n: Int): Int {
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun isPalindrome(n: Int): Boolean = TODO()
+fun isPalindrome(n: Int): Boolean = revert(n) == n
 
 /**
  * Средняя
@@ -258,7 +259,17 @@ fun isPalindrome(n: Int): Boolean = TODO()
  *
  * Использовать операции со строками в этой задаче запрещается.
  */
-fun hasDifferentDigits(n: Int): Boolean = TODO()
+fun hasDifferentDigits(n: Int): Boolean {
+    var a = n % 10
+    var b = n % 100 / 10
+    var c = n / 100
+    while (a == b && c > 0) {
+        a = c % 10
+        if(c%100/10 != 0) b = c % 100 / 10
+        c /= 100
+    }
+    return a!=b
+}
 
 /**
  * Сложная
