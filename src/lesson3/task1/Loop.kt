@@ -121,12 +121,7 @@ fun lcm(m: Int, n: Int): Int {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int {
-    var divider = 2
-    while (n % divider !== 0) {
-        divider += 1
-    }
-    return divider
+fun minDivisor(n: Int): Int = TODO()
 }
 
 /**
@@ -134,13 +129,7 @@ fun minDivisor(n: Int): Int {
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int {
-    var divider = n - n / 2
-    while (n % divider !== 0) {
-        divider -= 1
-    }
-    return divider
-}
+fun maxDivisor(n: Int): Int = TODO()
 
 /**
  * Простая
@@ -253,17 +242,17 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var counter = digitNumber(n)
-    var a = 1
-    var b = 1
-    var c = n
-    for (k in 1..counter) {
-        a = c % 10
-        b = c % 100 / 10
-        c /= 100
-        if (a!=b) break
+    var counter = digitNumber(n) - 2
+    var number = n
+    var lastDigit = number % 10
+    var penultimateDigit= number / 10 % 10
+    while (counter > 0 && lastDigit == penultimateDigit ) {
+        lastDigit = number % 10
+        penultimateDigit = number / 10 % 10
+        number /= 100
+        counter -= 2
     }
-    return a!=b
+    return lastDigit != penultimateDigit
 }
 
 /**
