@@ -122,7 +122,7 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int = TODO()
-}
+
 
 /**
  * Простая
@@ -212,7 +212,6 @@ fun revert(n: Int): Int {
     val digitsInNumber = digitNumber(n)
     var number = n
     var result = 0
-    number = n
     var power = 10.0.pow(digitsInNumber - 1).toInt()
     while (power != 0) {
         result += number % 10 * power
