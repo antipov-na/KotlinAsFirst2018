@@ -121,16 +121,25 @@ fun lcm(m: Int, n: Int): Int {
  *
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
-fun minDivisor(n: Int): Int = TODO()
-
+fun minDivisor(n: Int): Int {
+  for (k in 2..sqrt(n.toDouble()).toInt()) {
+      if (n % k == 0) return k
+  }
+  return n
+}
 
 /**
  * Простая
  *
  * Для заданного числа n > 1 найти максимальный делитель, меньший n
  */
-fun maxDivisor(n: Int): Int = TODO()
-
+fun maxDivisor(n: Int): Int {
+    var divider = n - n / 2
+    while (n % divider !== 0) {
+        divider -= 1
+    }
+    return divider
+}
 /**
  * Простая
  *
@@ -139,9 +148,10 @@ fun maxDivisor(n: Int): Int = TODO()
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
-    for (k in 2..max(m, n) / 2) {
+    for (k in 2..(min(m, n) / 2)) {
         if (m % k == 0 && n % k == 0) return false
     }
+    if (max(m,n) % min(m,n) == 0) return false
     return true
 }
 
@@ -241,17 +251,17 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  * Использовать операции со строками в этой задаче запрещается.
  */
 fun hasDifferentDigits(n: Int): Boolean {
-    var counter = digitNumber(n) - 2
-    var number = n
-    var lastDigit = number % 10
-    var penultimateDigit= number / 10 % 10
-    while (counter > 0 && lastDigit == penultimateDigit ) {
-        lastDigit = number % 10
-        penultimateDigit = number / 10 % 10
-        number /= 100
-        counter -= 2
+    var count = digitNumber(n) - 1
+    var number = n / 10
+    var x = n % 10
+    var y = n / 10 % 10
+    while (count > 0 && x == y) {
+        if (count > 1) x = y
+        if (count > 1) y= number / 10 % 10
+        number /= 10
+        count -= 1
     }
-    return lastDigit != penultimateDigit
+    return x !== y
 }
 
 /**

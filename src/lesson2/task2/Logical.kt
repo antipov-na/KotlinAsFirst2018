@@ -2,9 +2,7 @@
 package lesson2.task2
 
 import lesson1.task1.sqr
-import kotlin.math.abs
-import kotlin.math.sqrt
-
+import kotlin.math.*
 /**
  * Пример
  *
@@ -47,13 +45,13 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 
-fun daysInMonth(month: Int, year: Int): Int {
+fun daysInMonth(month: Int , year: Int): Int {
     if ((year % 4 == 0 && year % 100 != 0 || year % 400 == 0) && month == 2) return 29
-    if (month == 2) return 28
-   return when (month) {
-       in (1..7 step 2), in (8..12 step 2) -> 31
-       else -> 30
-   }
+    return when (month) {
+        2 -> 28
+        in (1..7 step 2) , in (8..12 step 2) -> 31
+        else -> 30
+    }
 }
 
 
@@ -78,6 +76,17 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * кирпич 4 х 4 х 4 пройдёт через отверстие 4 х 4.
  * Вернуть true, если кирпич пройдёт
  */
-fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean =
-        r * s >= a * b || r * s >= c * b || r * s >= a * c
+fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
+    val holeMax = max(r,s)
+    val holeMin = min(r,s)
+    val brickMin = min(min(a,b),c)
+    val brickMax = max(max(a,b),c)
+    val brickMiddle = when {
+        abs((a + b + c)/ 3 - a) < brickMax- (a + b + c)/ 3 -> a
+        abs((a + b + c)/ 3 - b) < brickMax- (a + b + c)/ 3 -> b
+        else -> c
+    }
+    return holeMax >= brickMiddle && holeMin >= brickMin
+
+}
 
