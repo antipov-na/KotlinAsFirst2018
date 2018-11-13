@@ -1,8 +1,10 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task2
 
 import lesson1.task1.sqr
 import kotlin.math.*
+
 /**
  * Пример
  *
@@ -18,13 +20,12 @@ fun pointInsideCircle(x: Double, y: Double, x0: Double, y0: Double, r: Double) =
  * Определить, счастливое ли заданное число, вернуть true, если это так.
  */
 fun isNumberHappy(number: Int): Boolean {
-    val firstN  = number / 1000
+    val firstN = number / 1000
     val secondN = number / 100 % 10
-    val thirdN  = number / 10 % 10
+    val thirdN = number / 10 % 10
     val fourthN = number % 10
     return firstN + secondN == thirdN + fourthN
 }
-
 
 
 /**
@@ -35,7 +36,7 @@ fun isNumberHappy(number: Int): Boolean {
  * Считать, что ферзи не могут загораживать друг друга.
  */
 fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
-        x1 == x2 || y1 == y2 || abs(x1 -x2) == abs(y1 -y2)
+        x1 == x2 || y1 == y2 || abs(x1 - x2) == abs(y1 - y2)
 
 
 /**
@@ -45,11 +46,11 @@ fun queenThreatens(x1: Int, y1: Int, x2: Int, y2: Int): Boolean =
  * Вернуть число дней в этом месяце этого года по григорианскому календарю.
  */
 
-fun daysInMonth(month: Int , year: Int): Int {
+fun daysInMonth(month: Int, year: Int): Int {
     if ((year % 4 == 0 && year % 100 != 0 || year % 400 == 0) && month == 2) return 29
     return when (month) {
         2 -> 28
-        in (1..7 step 2) , in (8..12 step 2) -> 31
+        in (1..7 step 2), in (8..12 step 2) -> 31
         else -> 30
     }
 }
@@ -64,7 +65,7 @@ fun daysInMonth(month: Int , year: Int): Int {
  */
 fun circleInside(x1: Double, y1: Double, r1: Double,
                  x2: Double, y2: Double, r2: Double): Boolean =
-        (sqrt(sqr(x2-x1)+sqr(y2-y1)) <= r2 - r1)
+        (sqrt(sqr(x2 - x1) + sqr(y2 - y1)) <= r2 - r1)
 
 
 /**
@@ -77,13 +78,13 @@ fun circleInside(x1: Double, y1: Double, r1: Double,
  * Вернуть true, если кирпич пройдёт
  */
 fun brickPasses(a: Int, b: Int, c: Int, r: Int, s: Int): Boolean {
-    val holeMax = max(r,s)
-    val holeMin = min(r,s)
-    val brickMin = min(min(a,b),c)
-    val brickMax = max(max(a,b),c)
+    val holeMax = max(r, s)
+    val holeMin = min(r, s)
+    val brickMin = min(min(a, b), c)
+    val brickMax = max(max(a, b), c)
     val brickMiddle = when {
-        abs((a + b + c)/ 3 - a) < brickMax- (a + b + c)/ 3 -> a
-        abs((a + b + c)/ 3 - b) < brickMax- (a + b + c)/ 3 -> b
+        abs((a + b + c) / 3 - a) < brickMax - (a + b + c) / 3 -> a
+        abs((a + b + c) / 3 - b) < brickMax - (a + b + c) / 3 -> b
         else -> c
     }
     return holeMax >= brickMiddle && holeMin >= brickMin

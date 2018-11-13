@@ -122,7 +122,7 @@ fun lcm(m: Int, n: Int): Int {
  * Для заданного числа n > 1 найти минимальный делитель, превышающий 1
  */
 fun minDivisor(n: Int): Int {
-  for (k in 2..sqrt(n.toDouble()).toInt()) {
+  for (k in 2..floor(sqrt(n.toDouble())).toInt()) {
       if (n % k == 0) return k
   }
   return n
@@ -148,10 +148,10 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
+    if (max(m,n) % min(m,n) == 0) return false
     for (k in 2..(min(m, n) / 2)) {
         if (m % k == 0 && n % k == 0) return false
     }
-    if (max(m,n) % min(m,n) == 0) return false
     return true
 }
 
@@ -261,7 +261,7 @@ fun hasDifferentDigits(n: Int): Boolean {
         number /= 10
         count -= 1
     }
-    return x !== y
+    return x != y
 }
 
 /**
