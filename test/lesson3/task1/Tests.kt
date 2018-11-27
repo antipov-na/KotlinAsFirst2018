@@ -206,6 +206,7 @@ class Tests {
             assertFalse(hasDifferentDigits(777))
             assertFalse(hasDifferentDigits(-7777777))
             assertTrue(hasDifferentDigits(2266))
+            assertFalse(hasDifferentDigits(1))
 
         }
 

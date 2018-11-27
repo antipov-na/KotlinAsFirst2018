@@ -3,7 +3,6 @@
 package lesson3.task1
 
 import lesson1.task1.sqr
-import lesson4.task1.factorizeToString
 import kotlin.math.*
 
 
@@ -148,6 +147,7 @@ fun maxDivisor(n: Int): Int {
  * Например, 25 и 49 взаимно простые, а 6 и 8 -- нет.
  */
 fun isCoPrime(m: Int, n: Int): Boolean {
+    if (m == 1 || n == 1) return true
     if (max(m,n) % min(m,n) == 0) return false
     for (k in 2..(min(m, n) / 2)) {
         if (m % k == 0 && n % k == 0) return false
@@ -252,6 +252,7 @@ fun isPalindrome(n: Int): Boolean = revert(n) == n
  */
 fun hasDifferentDigits(n: Int): Boolean {
     var count = digitNumber(n) - 1
+    if (count == 0) return false
     var number = n / 10
     var x = n % 10
     var y = n / 10 % 10

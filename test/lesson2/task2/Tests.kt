@@ -65,5 +65,6 @@ class Tests {
         assertFalse(brickPasses(6, 5, 4, 3, 6))
         assertTrue(brickPasses(3, 2, 1, 1, 2))
         assertFalse(brickPasses(231, 666, 851, 649, 648))
+        assertFalse(brickPasses(1, 239, 648, 1, 1))
     }
 }
