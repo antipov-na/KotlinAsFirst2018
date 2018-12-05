@@ -5,7 +5,6 @@ package lesson4.task1
 import lesson1.task1.discriminant
 import lesson1.task1.sqr
 import kotlin.math.*
-import kotlin.system.measureNanoTime
 
 /**
  * Пример
@@ -118,7 +117,7 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * Модуль пустого вектора считать равным 0.0.
  */
 fun abs(v: List<Double>): Double {
-    var result =0.0
+    var result = 0.0
     for (element in v) {
         result += sqr(element)
     }
