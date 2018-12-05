@@ -208,15 +208,15 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> {
  * Множители в списке должны располагаться по возрастанию.
  */
 fun factorize(n: Int): List<Int> {
-    var i = 2
+    var divider = 2
     val result = mutableListOf<Int>()
-    var x = n
-    while (i <= x) {
-        if (x % i == 0) {
-            result.add(i)
-            x /= i
+    var number = n
+    while (divider <= number) {
+        if (number % divider == 0) {
+            result.add(divider)
+            number /= divider
         }
-        else i += 1
+        else divider += 1
     }
     return result.sorted()
 }
