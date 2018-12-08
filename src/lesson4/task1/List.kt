@@ -163,7 +163,7 @@ fun times(a: List<Double>, b: List<Double>): Double {
     for (i in 0 until a.size) {
         result += a[i] * b[i]
     }
-    return  result
+    return result
 }
 
 /**
@@ -194,7 +194,7 @@ fun polynom(p: List<Double>, x: Double): Double {
  */
 fun accumulate(list: MutableList<Double>): MutableList<Double> {
     for (i in 1 until list.size) {
-        list[i] += list [i-1]
+        list[i] += list[i - 1]
     }
     return list
 }
@@ -214,8 +214,7 @@ fun factorize(n: Int): List<Int> {
         if (number % divider == 0) {
             result.add(divider)
             number /= divider
-        }
-        else divider += 1
+        } else divider += 1
     }
     return result.sorted()
 }
@@ -227,7 +226,7 @@ fun factorize(n: Int): List<Int> {
  * Результат разложения вернуть в виде строки, например 75 -> 3*5*5
  * Множители в результирующей строке должны располагаться по возрастанию.
  */
-fun factorizeToString(n: Int): String =  factorize(n).joinToString(separator = "*")
+fun factorizeToString(n: Int): String = factorize(n).joinToString(separator = "*")
 
 /**
  * Средняя
@@ -238,9 +237,7 @@ fun factorizeToString(n: Int): String =  factorize(n).joinToString(separator = "
  */
 fun convert(n: Int, base: Int): List<Int> {
     val result = mutableListOf<Int>()
-    val revertResult = mutableListOf<Int>()
     var number = n
-    var counter = 0
     if (n < base) {
         result.add(n)
         return result
@@ -250,13 +247,7 @@ fun convert(n: Int, base: Int): List<Int> {
             number /= base
             if (number < base) result.add(number)
         }
-        for (i in result.size downTo 0) {
-            revertResult[counter] = result[i]
-            counter++
-
-        }
-
-        return revertResult
+        return result.reversed()
     }
 }
 
