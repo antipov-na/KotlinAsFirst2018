@@ -2,6 +2,8 @@
 
 package lesson5.task1
 
+import lesson4.task1.factorizeToString
+
 /**
  * Пример
  *
@@ -94,7 +96,21 @@ fun buildWordSet(text: List<String>): MutableSet<String> {
  *     mapOf("Emergency" to "911", "Police" to "02")
  *   ) -> mapOf("Emergency" to "112, 911", "Police" to "02")
  */
-fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> = TODO()
+fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<String, String> {
+    val res = mutableMapOf<String, String>()
+    var combinedPhones: String
+    res.putAll(mapA)
+    for ((name, phone) in mapB) {
+        if (name !in res) res[name] = phone
+    }
+    for ((name, phone) in res) {
+        if (name in mapB && phone != mapB[name]) {
+            combinedPhones = res[name] + ", " + mapB[name]
+            res[name] = combinedPhones
+        }
+    }
+    return res
+}
 
 /**
  * Простая
@@ -107,10 +123,10 @@ fun mergePhoneBooks(mapA: Map<String, String>, mapB: Map<String, String>): Map<S
  *     -> mapOf(5 to listOf("Семён", "Михаил"), 3 to listOf("Марат"))
  */
 fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
-    var res = mapOf<Int, MutableList<String>>()
-    for ((key,value) in grades ) {
-        if (res[value] == null) res += Pair(value,mutableListOf<String>())
-        res[value]!!.add(key)
+    val res = mutableMapOf<Int, MutableList<String>>()
+    for ((key, value) in grades) {
+        if (res[value] == null) res += Pair(value, mutableListOf())
+        res[value]?.add(key)
     }
     return res
 }
@@ -125,7 +141,12 @@ fun buildGrades(grades: Map<String, Int>): Map<Int, List<String>> {
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "z", "b" to "sweet")) -> true
  *   containsIn(mapOf("a" to "z"), mapOf("a" to "zee", "b" to "sweet")) -> false
  */
-fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
+fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean {
+    for ((key, value) in a) {
+        if (key !in b || value !== b[key]) return false
+    }
+    return true
+}
 
 /**
  * Средняя
@@ -137,7 +158,19 @@ fun containsIn(a: Map<String, String>, b: Map<String, String>): Boolean = TODO()
  *   averageStockPrice(listOf("MSFT" to 100.0, "MSFT" to 200.0, "NFLX" to 40.0))
  *     -> mapOf("MSFT" to 150.0, "NFLX" to 40.0)
  */
-fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> = TODO()
+fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Double> {
+    val result = mutableMapOf<String, Double>()
+    val matchCounter = mutableMapOf<String, Int>()
+    for (element in stockPrices) {
+        if (element.first in result) {
+            result[element.first] = result[element.first]!!.plus(element.second)
+            matchCounter[element.first] = (matchCounter[element.first] ?: 1) + 1
+        } else
+            result[element.first] = element.second
+    }
+    for ((String, Int) in matchCounter) result[String] = result[String]!!.div(Int)
+    return result
+}
 
 /**
  * Средняя
@@ -154,7 +187,17 @@ fun averageStockPrice(stockPrices: List<Pair<String, Double>>): Map<String, Doub
  *     "печенье"
  *   ) -> "Мария"
  */
-fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? = TODO()
+fun findCheapestStuff(stuff: Map<String, Pair<String, Double>>, kind: String): String? {
+    var res: String? = null
+    var x = Double.MAX_VALUE
+    for ((key, value) in stuff) {
+        if (kind == value.first && value.second < x) {
+            x = value.second
+            res = key
+        }
+    }
+    return res
+}
 
 /**
  * Сложная
@@ -203,7 +246,20 @@ fun subtractOf(a: MutableMap<String, String>, b: Map<String, String>): Unit = TO
  *
  * Для двух списков людей найти людей, встречающихся в обоих списках
  */
-fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
+fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
+    val res = mutableListOf(String())
+    res.removeAt(0)
+    if (a.size > b.size) {
+        for (element in a) {
+            if (element in b) res.add(element)
+        }
+    } else {
+        for (element in b) {
+            if (element in a) res.add(element)
+        }
+    }
+    return res
+}
 
 /**
  * Средняя
@@ -214,7 +270,13 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> = TODO()
  * Например:
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
-fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
+fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    if (chars.isEmpty()) return false
+    val setOfLetters = mutableSetOf<Char>()
+    for (i in 0 until word.length) setOfLetters.add(word[i])
+    for (element in chars) if (element !in setOfLetters) return false
+    return true
+}
 
 /**
  * Средняя
@@ -228,7 +290,19 @@ fun canBuildFrom(chars: List<Char>, word: String): Boolean = TODO()
  * Например:
  *   extractRepeats(listOf("a", "b", "a")) -> mapOf("a" to 2)
  */
-fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
+fun extractRepeats(list: List<String>): Map<String, Int> {
+    val res = mutableMapOf<String, Int>()
+    val toRemove = mutableSetOf<String>()
+    for (element in list) {
+        if (res[element] == 1) res[element] = res[element]!! + 1 else
+            res[element] = 1
+    }
+    for ((key, value) in res) {
+        if (value == 1) toRemove.add(key)
+    }
+    for (element in toRemove) res.remove(element)
+    return res
+}
 
 /**
  * Средняя
@@ -239,7 +313,20 @@ fun extractRepeats(list: List<String>): Map<String, Int> = TODO()
  * Например:
  *   hasAnagrams(listOf("тор", "свет", "рот")) -> true
  */
-fun hasAnagrams(words: List<String>): Boolean = TODO()
+fun hasAnagrams(words: List<String>): Boolean {
+    val setOfLetters = mutableSetOf<Char>()
+    val secondSetOfLetters = mutableSetOf<Char>()
+    for (n in 0 until words.size) {
+        for (i in 0 until words[n].length) setOfLetters.add(words[n][i])
+        setOfLetters.sorted()
+        for (m in n + 1 until words.size) {
+            for (i in 0 until words[m].length) secondSetOfLetters.add(words[m][i])
+            secondSetOfLetters.sorted()
+            if (secondSetOfLetters == setOfLetters) return true
+        }
+    }
+    return false
+}
 
 /**
  * Сложная

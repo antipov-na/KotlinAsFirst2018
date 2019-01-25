@@ -1,4 +1,5 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson2.task1
 
 import lesson1.task1.discriminant
@@ -63,13 +64,13 @@ fun minBiRoot(a: Double, b: Double, c: Double): Double {
  * вернуть строку вида: «21 год», «32 года», «12 лет».
  */
 
-fun ageDescription(age: Int): String  {
+fun ageDescription(age: Int): String {
     var simplifiedAge = age
     if (age in 21..110 || age > 120) simplifiedAge = age % 10
     return when (simplifiedAge) {
-        1        -> "$age год"
-        in 2..4  -> "$age года"
-        else     -> "$age лет"
+        1 -> "$age год"
+        in 2..4 -> "$age года"
+        else -> "$age лет"
     }
 }
 
@@ -150,15 +151,15 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
     val hypotenuse = max(max(a, b), c)
     var kat1 = 0.0
     var kat2 = 0.0
-    if (hypotenuse == c){
+    if (hypotenuse == c) {
         kat1 = b
         kat2 = a
     }
-    if (hypotenuse == a){
+    if (hypotenuse == a) {
         kat1 = b
         kat2 = c
     }
-    if (hypotenuse == b){
+    if (hypotenuse == b) {
         kat1 = a
         kat2 = c
     }
@@ -179,11 +180,11 @@ fun triangleKind(a: Double, b: Double, c: Double): Int {
  */
 fun segmentLength(a: Int, b: Int, c: Int, d: Int): Int =
         when {
-           c in a..b && d in a..b -> d - c
-           a in c..d && b in c..d -> b - a
-           c in a..b  -> b - c
-           d in a..b  -> d - a
-           else -> -1
+            c in a..b && d in a..b -> d - c
+            a in c..d && b in c..d -> b - a
+            c in a..b -> b - c
+            d in a..b -> d - a
+            else -> -1
         }
 
 
