@@ -251,11 +251,11 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
     res.removeAt(0)
     if (a.size > b.size) {
         for (element in a) {
-            if (element in b) res.add(element)
+            if (element in b && element !in res) res.add(element)
         }
     } else {
         for (element in b) {
-            if (element in a) res.add(element)
+            if (element in a && element !in res) res.add(element)
         }
     }
     return res
@@ -294,7 +294,7 @@ fun extractRepeats(list: List<String>): Map<String, Int> {
     val res = mutableMapOf<String, Int>()
     val toRemove = mutableSetOf<String>()
     for (element in list) {
-        if (res[element] == 1) res[element] = res[element]!! + 1 else
+        if (res[element] != null) res[element] = res[element]!! + 1 else
             res[element] = 1
     }
     for ((key, value) in res) {
