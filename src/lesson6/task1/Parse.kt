@@ -75,7 +75,7 @@ fun main(args: Array<String>) {
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ").toMutableList()
     try {
-        if (parts.size != 3 || parts[2].toInt() <= 0  || parts[0].toInt() !in 1..31) return ""
+        if (parts.size != 3 || parts[2].toInt() < 0  || parts[0].toInt() !in 1..31) return ""
     } catch (e: NumberFormatException) {
         return ""
     }
@@ -95,7 +95,7 @@ fun dateStrToDigit(str: String): String {
         else -> return ""
     }
     if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
-    return String.format("%02d.%02d.%04d", parts[0].toInt(), parts[1].toInt(), parts[2].toInt())
+    return String.format("%02d.%02d.%d", parts[0].toInt(), parts[1].toInt(), parts[2].toInt())
 
 }
 
@@ -112,7 +112,7 @@ fun dateStrToDigit(str: String): String {
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".").toMutableList()
     try {
-        if (parts.size != 3 || parts[2].toInt() <= 0|| parts[0].toInt() !in 1..31) return ""
+        if (parts.size != 3 || parts[2].toInt() < 0|| parts[0].toInt() !in 1..31) return ""
         if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
     } catch (e: NumberFormatException) {
         return ""
