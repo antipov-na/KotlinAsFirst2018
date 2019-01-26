@@ -97,16 +97,16 @@ fun dateDigitToStr(digital: String): String = TODO()
  * При неверном формате вернуть пустую строку
  */
 fun flattenPhoneNumber(phone: String): String {
-    var parts = phone
+    var editedPhone = phone
     var x: Int
     val charToRemove = setOf(")", "(", "-", " ")
-    for (element in charToRemove) parts = parts.replace(element, "")
-    val letterCheck = parts.replace("+", "")
-    for (i in 1 until letterCheck.length) {
+    for (element in charToRemove) editedPhone = editedPhone.replace(element, "")
+    val letterCheck = editedPhone.replace("+", "")
+    for (i in 0 until letterCheck.length) {
         x = letterCheck[i].toInt()
         if (x !in 49..59) return ""
     }
-    return parts
+    return editedPhone
 }
 
 /**
