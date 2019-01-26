@@ -74,12 +74,11 @@ fun main(args: Array<String>) {
  */
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ").toMutableList()
-   try{
-       if (parts.size != 3 || parts[2].toInt() !in 1..9999 || parts [0].toInt() !in 1..31 ) return ""
-   }
-   catch (e: NumberFormatException) {
-       return ""
-   }
+    try {
+        if (parts.size != 3 || parts[2].toInt() !in 1..9999 || parts[0].toInt() !in 1..31) return ""
+    } catch (e: NumberFormatException) {
+        return ""
+    }
     when (parts[1]) {
         "января" -> parts[1] = "1"
         "февраля" -> parts[1] = "2"
@@ -95,7 +94,7 @@ fun dateStrToDigit(str: String): String {
         "декабря" -> parts[1] = "12"
         else -> return ""
     }
-    if(parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
+    if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
     return String.format("%02d.%02d.%04d", parts[0].toInt(), parts[1].toInt(), parts[2].toInt())
 
 }
