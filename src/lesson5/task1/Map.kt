@@ -271,6 +271,7 @@ fun whoAreInBoth(a: List<String>, b: List<String>): List<String> {
  *   canBuildFrom(listOf('a', 'b', 'o'), "baobab") -> true
  */
 fun canBuildFrom(chars: List<Char>, word: String): Boolean {
+    if (chars.isEmpty() && word.isEmpty()) return true
     if (chars.isEmpty()) return false
     if (word.isEmpty()) return true
     val lowerCaseChars = chars.toMutableList()
