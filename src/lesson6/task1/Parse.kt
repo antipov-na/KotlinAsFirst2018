@@ -75,7 +75,7 @@ fun main(args: Array<String>) {
 fun dateStrToDigit(str: String): String {
     val parts = str.split(" ").toMutableList()
     try {
-        if (parts.size != 3 || parts[2].toInt() < 0  || parts[0].toInt() !in 1..31) return ""
+        if (parts.size != 3 || parts[2].toInt() < 0 || parts[0].toInt() !in 1..31) return ""
     } catch (e: NumberFormatException) {
         return ""
     }
@@ -112,7 +112,7 @@ fun dateStrToDigit(str: String): String {
 fun dateDigitToStr(digital: String): String {
     val parts = digital.split(".").toMutableList()
     try {
-        if (parts.size != 3 || parts[2].toInt() < 0|| parts[0].toInt() !in 1..31) return ""
+        if (parts.size != 3 || parts[2].toInt() < 0 || parts[0].toInt() !in 1..31) return ""
         if (parts[0].toInt() > daysInMonth(parts[1].toInt(), parts[2].toInt())) return ""
     } catch (e: NumberFormatException) {
         return ""
@@ -204,7 +204,30 @@ fun bestHighJump(jumps: String): Int = TODO()
  * Вернуть значение выражения (6 для примера).
  * Про нарушении формата входной строки бросить исключение IllegalArgumentException
  */
-fun plusMinus(expression: String): Int = TODO()
+fun plusMinus(expression: String): Int {
+    val parts = expression.split(" ")
+    var res = parts[0].toInt()
+    var letterCheck = ""
+    for (i in 1 until parts.size step 2) {
+        if (parts[i] != "+" && parts[i] != "-") throw IllegalArgumentException()
+    }
+    try {
+        for (m in 0 until parts.size step 2) letterCheck += parts[m]
+        letterCheck.toInt()
+    } catch (e: IllegalArgumentException) {
+        throw IllegalArgumentException()
+    }
+    if (parts[0][0].toInt() !in 48..57) {
+        throw IllegalArgumentException()
+    }
+    for (i in 1 until parts.size step 2) {
+        when (parts[i]) {
+            "+" -> res += parts[i + 1].toInt()
+            "-" -> res -= parts[i + 1].toInt()
+        }
+    }
+    return res
+}
 
 /**
  * Сложная
