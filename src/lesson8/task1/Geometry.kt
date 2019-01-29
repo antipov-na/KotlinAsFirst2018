@@ -1,11 +1,9 @@
 @file:Suppress("UNUSED_PARAMETER")
+
 package lesson8.task1
 
 import lesson1.task1.sqr
-import kotlin.math.PI
-import kotlin.math.cos
-import kotlin.math.sin
-import kotlin.math.sqrt
+import kotlin.math.*
 
 /**
  * Точка на плоскости
@@ -33,7 +31,8 @@ class Triangle private constructor(private val points: Set<Point>) {
 
     val c: Point get() = pointList[2]
 
-    constructor(a: Point, b: Point, c: Point): this(linkedSetOf(a, b, c))
+    constructor(a: Point, b: Point, c: Point) : this(linkedSetOf(a, b, c))
+
     /**
      * Пример: полупериметр
      */
@@ -76,14 +75,19 @@ data class Circle(val center: Point, val radius: Double) {
      * расстояние между их центрами минус сумма их радиусов.
      * Расстояние между пересекающимися окружностями считать равным 0.0.
      */
-    fun distance(other: Circle): Double = TODO()
+    fun distance(other: Circle): Double {
+        val x = sqrt(sqr(center.x - other.center.x) + sqr(center.y - other.center.y)) - radius - other.radius
+        if (x < 0) return 0.0 else return x
+    }
 
     /**
      * Тривиальная
      *
      * Вернуть true, если и только если окружность содержит данную точку НА себе или ВНУТРИ себя
      */
-    fun contains(p: Point): Boolean = TODO()
+    fun contains(p: Point): Boolean {
+        return (sqrt(sqr(center.x - p.x) + sqr(center.y - p.y)) < radius)
+    }
 }
 
 /**
@@ -103,7 +107,22 @@ data class Segment(val begin: Point, val end: Point) {
  * Дано множество точек. Вернуть отрезок, соединяющий две наиболее удалённые из них.
  * Если в множестве менее двух точек, бросить IllegalArgumentException
  */
-fun diameter(vararg points: Point): Segment = TODO()
+fun diameter(vararg points: Point): Segment {
+    var startPoint = Point(0.0,0.0)
+    var endPoint= Point(0.0,0.0)
+    var distance = 0.0
+    if (points.size < 2) throw IllegalArgumentException()
+    for (i in 0 until points.size) {
+        for (m in i until points.size) {
+            if (sqrt(sqr(points[i].x - points[m].x) + sqr(points[i].y - points[m].y)) > distance){
+                distance = sqrt(sqr(points[i].x - points[m].x) + sqr(points[i].y - points[m].y))
+                startPoint = points [i]
+                endPoint = points[m]
+            }
+        }
+    }
+    return Segment(startPoint, endPoint)
+}
 
 /**
  * Простая
@@ -124,7 +143,7 @@ class Line private constructor(val b: Double, val angle: Double) {
         require(angle >= 0 && angle < PI) { "Incorrect line angle: $angle" }
     }
 
-    constructor(point: Point, angle: Double): this(point.y * cos(angle) - point.x * sin(angle), angle)
+    constructor(point: Point, angle: Double) : this(point.y * cos(angle) - point.x * sin(angle), angle)
 
     /**
      * Средняя
