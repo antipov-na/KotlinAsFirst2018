@@ -84,8 +84,34 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
  * Исключения (жюри, брошюра, парашют) в рамках данного задания обрабатывать не нужно
  *
  */
+
 fun sibilants(inputName: String, outputName: String) {
-    TODO()
+    val writer = File(outputName).bufferedWriter()
+    val checkedLetters = setOf('Ж', 'Ч', 'Ш', 'Щ', 'ж', 'ч', 'ш', 'щ' )
+    var editedLine: String
+    for (line in File(inputName).readLines()) {
+        editedLine = line
+        for (i in 0 until editedLine.length) {
+            if (editedLine[i] in checkedLetters) {
+                if (editedLine[i + 1].toInt() in 1040..1071) {
+                    when (editedLine[i + 1]) {
+                        'Ы' -> editedLine = editedLine.substring(0,i+1) + "И" + editedLine.substring(i+2)
+                        'Я' -> editedLine = editedLine.substring(0,i+1) + "А" + editedLine.substring(i+2)
+                        'Ю' -> editedLine = editedLine.substring(0,i+1) + "У" + editedLine.substring(i+2)
+                    }
+                }
+                if (editedLine[i + 1].toInt() in 1072..1103) {
+                    when (editedLine[i + 1]) {
+                        'ы' -> editedLine = editedLine.substring(0,i+1) + "и" + editedLine.substring(i+2)
+                        'я' -> editedLine = editedLine.substring(0,i+1) + "а" + editedLine.substring(i+2)
+                        'ю' -> editedLine = editedLine.substring(0,i+1) + "у" + editedLine.substring(i+2)
+                    }
+                }
+            }
+        }
+        writer.write(editedLine)
+    }
+    writer.close()
 }
 
 /**
