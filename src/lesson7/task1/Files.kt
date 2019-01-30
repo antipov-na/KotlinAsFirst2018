@@ -91,7 +91,7 @@ fun sibilants(inputName: String, outputName: String) {
     var editedLine: String
     for (line in File(inputName).readLines()) {
         editedLine = line
-        for (i in 0 until editedLine.length) {
+            for (i in 0 until editedLine.length-1) {
             if (editedLine[i] in checkedLetters) {
                 if (editedLine[i + 1].toInt() in 1040..1071) {
                     when (editedLine[i + 1]) {
