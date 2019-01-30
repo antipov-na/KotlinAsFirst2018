@@ -207,6 +207,11 @@ fun bestHighJump(jumps: String): Int = TODO()
  */
 fun plusMinus(expression: String): Int {
     val parts = expression.split(" ")
+    try {
+        parts[0].toInt()
+    } catch (e: IllegalArgumentException) {
+        throw IllegalArgumentException()
+    }
     var res = parts[0].toInt()
     var letterCheck = ""
     for (i in 1 until parts.size step 2) {
