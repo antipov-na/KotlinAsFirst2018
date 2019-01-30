@@ -217,14 +217,9 @@ fun plusMinus(expression: String): Int {
     for (i in 1 until parts.size step 2) {
         if (parts[i] != "+" && parts[i] != "-") throw IllegalArgumentException()
     }
-    try {
-        for (m in 0 until parts.size step 2) letterCheck += parts[m]
-        letterCheck.toInt()
-    } catch (e: IllegalArgumentException) {
-        throw IllegalArgumentException()
-    }
-    if (parts[0][0].toInt() !in 48..57) {
-        throw IllegalArgumentException()
+    for (m in 0 until parts.size step 2) letterCheck += parts[m]
+    for (i in 0 until letterCheck.length) {
+        if (letterCheck[i].toInt() !in 48..57) throw IllegalArgumentException()
     }
     for (i in 1 until parts.size step 2) {
         when (parts[i]) {
