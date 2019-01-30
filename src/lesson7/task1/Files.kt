@@ -56,20 +56,20 @@ fun alignFile(inputName: String, lineLength: Int, outputName: String) {
  */
 fun countSubstrings(inputName: String, substrings: List<String>): Map<String, Int> {
     val res = mutableMapOf<String, Int>()
-    for (element in substrings) res[element] = 0
-    for (line in File(inputName).readLines()) {
-        for (i in 0 until substrings.size) {
-            for (m in 0 until line.length) {
-                if (line.length < m + substrings[i].length) continue
-                if (line.toLowerCase().substring(m, m + substrings[i].length) == substrings[i].toLowerCase()) {
-                    res[substrings[i]] = res[substrings[i]]!! + 1
-                }
+    val text = File(inputName).readText().toLowerCase()
+    for (element in substrings) {
+        res[element] = 0
+    }
+    for (element in substrings) {
+        for (m in 0 until text.length - element.length) {
+            if (text.substring(m, m + element.length) == element.toLowerCase()) {
+                res[element] = res[element]!! + 1
             }
         }
     }
+
     return res
 }
-
 
 /**
  * Средняя
@@ -87,7 +87,7 @@ fun countSubstrings(inputName: String, substrings: List<String>): Map<String, In
 
 fun sibilants(inputName: String, outputName: String) {
     val writer = File(outputName).bufferedWriter()
-    val checkedLetters = setOf('Ж', 'Ч', 'Ш', 'Щ', 'ж', 'ч', 'ш', 'щ' )
+    val checkedLetters = setOf('Ж', 'Ч', 'Ш', 'Щ', 'ж', 'ч', 'ш', 'щ')
     var editedLine: String
     for (line in File(inputName).readLines()) {
         editedLine = line
@@ -95,16 +95,16 @@ fun sibilants(inputName: String, outputName: String) {
             if (editedLine[i] in checkedLetters) {
                 if (editedLine[i + 1].toInt() in 1040..1071) {
                     when (editedLine[i + 1]) {
-                        'Ы' -> editedLine = editedLine.substring(0,i+1) + "И" + editedLine.substring(i+2)
-                        'Я' -> editedLine = editedLine.substring(0,i+1) + "А" + editedLine.substring(i+2)
-                        'Ю' -> editedLine = editedLine.substring(0,i+1) + "У" + editedLine.substring(i+2)
+                        'Ы' -> editedLine = editedLine.substring(0, i + 1) + "И" + editedLine.substring(i + 2)
+                        'Я' -> editedLine = editedLine.substring(0, i + 1) + "А" + editedLine.substring(i + 2)
+                        'Ю' -> editedLine = editedLine.substring(0, i + 1) + "У" + editedLine.substring(i + 2)
                     }
                 }
                 if (editedLine[i + 1].toInt() in 1072..1103) {
                     when (editedLine[i + 1]) {
-                        'ы' -> editedLine = editedLine.substring(0,i+1) + "и" + editedLine.substring(i+2)
-                        'я' -> editedLine = editedLine.substring(0,i+1) + "а" + editedLine.substring(i+2)
-                        'ю' -> editedLine = editedLine.substring(0,i+1) + "у" + editedLine.substring(i+2)
+                        'ы' -> editedLine = editedLine.substring(0, i + 1) + "и" + editedLine.substring(i + 2)
+                        'я' -> editedLine = editedLine.substring(0, i + 1) + "а" + editedLine.substring(i + 2)
+                        'ю' -> editedLine = editedLine.substring(0, i + 1) + "у" + editedLine.substring(i + 2)
                     }
                 }
             }
