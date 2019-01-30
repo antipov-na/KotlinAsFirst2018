@@ -110,6 +110,7 @@ fun sibilants(inputName: String, outputName: String) {
             }
         }
         writer.write(editedLine)
+        writer.newLine()
     }
     writer.close()
 }
